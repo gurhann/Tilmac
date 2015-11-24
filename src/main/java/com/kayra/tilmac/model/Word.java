@@ -1,45 +1,72 @@
 package com.kayra.tilmac.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
-import com.kayra.tilmac.enums.Languages;
-
+/**
+ * JPA - Java Persistence(Kalıcık) API (Application Programing Interface)
+ * ORM - Object Relation Mapping - sen veritabanı kodlarıyla fazla ugrasma sen nesneleri gönder
+ * ben onları veri tabanına kaydediyim 
+ * @author gurhan-pc
+ *
+ */
 @Entity
-@Table(name = "WORD")
-public class Word {
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+public abstract class Word implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue
-	@Column(name = "ID")
-	private Long id;
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "WORD_ID")
+	protected int id;
 	@Column(name = "TEXT")
-	private String text;
-	
-	private Languages lang;
-	
-	public Long getId() {
+	protected String text;
+
+	public Word() {
+	}
+
+	public int getId() {
 		return id;
 	}
-	public void setId(Long id) {
+
+	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getText() {
 		return text;
 	}
+
 	public void setText(String text) {
 		this.text = text;
 	}
-	public Languages getLang() {
-		return lang;
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
 	}
-	public void setLang(Languages lang) {
-		this.lang = lang;
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return super.equals(obj);
 	}
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return id + ":" + text;
+	}
+
 }
