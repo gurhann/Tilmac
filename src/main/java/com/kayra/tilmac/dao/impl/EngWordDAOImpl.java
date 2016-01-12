@@ -19,8 +19,15 @@ public class EngWordDAOImpl extends WordDAOImpl<EngWord>{
 	@Override
 	public EngWord findByText(String text) {
 		Query query = em.createNamedQuery(EngWord.FIND_BY_TEXT);
-		query.setParameter(TrWord.PARAM_TR_TEXT, text);
+		query.setParameter(EngWord.PARAM_ENG_TEXT, text);
 		return (EngWord) query.getSingleResult();
 	}
-
+	
+	@Override
+	public void deleteAll() {
+		Query query = em.createNamedQuery(EngWord.DELETE_ALL);
+		tx.begin();
+		query.executeUpdate();
+		tx.commit();
+	}
 }

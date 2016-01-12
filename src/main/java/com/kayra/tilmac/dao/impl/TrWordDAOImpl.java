@@ -6,6 +6,7 @@ import javax.persistence.Query;
 
 import org.omg.CORBA.TRANSACTION_MODE;
 
+import com.kayra.tilmac.model.EngWord;
 import com.kayra.tilmac.model.TrWord;
 
 public class TrWordDAOImpl extends WordDAOImpl<TrWord>{
@@ -23,5 +24,14 @@ public class TrWordDAOImpl extends WordDAOImpl<TrWord>{
 		query.setParameter(TrWord.PARAM_TR_TEXT, text);
 		return (TrWord) query.getSingleResult();
 	}
+	
+	@Override
+	public void deleteAll() {
+		Query query = em.createNamedQuery(EngWord.DELETE_ALL);
+		tx.begin();
+		query.executeUpdate();
+		tx.commit();
+	}
+	
 
 }

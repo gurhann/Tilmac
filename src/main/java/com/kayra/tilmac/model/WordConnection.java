@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -17,10 +16,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "WORD_CONNECTION")
 @NamedQueries({
-	@NamedQuery(name="word_connection.findByResourceWord",
-			query = "select wc from WordConnection wc where wc.resourceWord=:word")
+	@NamedQuery(name=WordConnection.FIND_BY_RESOURCE_WORD,
+			query = "select wc from WordConnection wc where wc.resourceWord=:word"),
+	@NamedQuery(name = WordConnection.FIND_ALL, query="select wc from WordConnection wc"),
+	@NamedQuery(name = WordConnection.DELETE_ALL, query="delete from WordConnection")
 })
 public class WordConnection {
+
+	public static final String FIND_BY_RESOURCE_WORD = "word_connection.findByResourceWord";
+	public static final String FIND_ALL = "word_connection.findAll";
+	public static final String DELETE_ALL = "word_connection.deleteAll";
 
 	@Id
 	@Column(name = "ID")

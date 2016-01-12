@@ -10,18 +10,25 @@ import org.hibernate.mapping.PersistentClass;
 
 public enum PersistenceManager {
 	INSTANCE;
-	
+
 	private EntityManagerFactory emf;
-	
+	private EntityManager em;
+
 	private PersistenceManager() {
 		emf = Persistence.createEntityManagerFactory("jpa-example");
 	}
-	
+
 	public EntityManager getEntityManager() {
-		return emf.createEntityManager();
+		if (em == null) {
+			em = emf.createEntityManager();
+		}
+		return em;
 	}
-	
+
 	public void close() {
 		emf.close();
-	}
+		if (em != null){
+			em.close();
+		}
+	} 
 }

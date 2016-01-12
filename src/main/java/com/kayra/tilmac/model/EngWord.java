@@ -10,11 +10,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ENG_WORDS")
 @NamedQueries({ @NamedQuery(name = EngWord.FIND_BY_TEXT, query = "select ew from EngWord ew where ew.text=:"+EngWord.PARAM_ENG_TEXT),
-		@NamedQuery(name = EngWord.FIND_ALL, query = "select ew from EngWord ew") })
+		@NamedQuery(name = EngWord.FIND_ALL, query = "select ew from EngWord ew"),
+		@NamedQuery(name = EngWord.DELETE_ALL, query = "delete  from EngWord " )})
 public class EngWord extends Word {
 	public static final String FIND_BY_TEXT = "engWord.findByText";
 	public static final String FIND_ALL = "engWord.findAll";
 	public static final String PARAM_ENG_TEXT = "engtext";
+	public static final String DELETE_ALL = "engWord.deleteAll";
 
 	public enum Queries {
 		FIND_BY_TEXT("engWord.findByText");
